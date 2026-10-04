@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sticky Note Roulette 🎰 | Miro × Qwen AI</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎰</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-mesh">
+    <div class="mesh-orb orb-1"></div>
+    <div class="mesh-orb orb-2"></div>
+    <div class="mesh-orb orb-3"></div>
+  </div>
+
+  <div class="app-layout">
+    <!-- Top Navigation Header -->
+    <header class="top-nav">
+      <div class="nav-brand">
+        <div class="brand-icon">🎰</div>
+        <div class="brand-text">
+          <h1>STICKY NOTE ROULETTE</h1>
+          <span class="brand-tag">Miro × Qwen Ideation Engine</span>
+        </div>
+      </div>
+
+      <div class="nav-controls">
+        <div class="board-badge" id="navBoardBadge" title="Active Miro Board">
+          <span class="status-dot"></span>
+          <span class="board-badge-name" id="navBoardName">Loading Board...</span>
+        </div>
+
+        <button class="nav-btn" id="openAddNoteBtn" title="Add Sticky Note to Miro">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>New Note</span>
+        </button>
+
+        <button class="nav-btn" id="openSettingsBtn" title="Board & API Settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <span>Configure</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+
+      <!-- Hero & Mission -->
+      <section class="hero-section">
+        <h2 class="hero-headline">Forge <span class="gradient-text">Impossible Connections</span></h2>
+        <p class="hero-description">
+          Random sticky notes from your Miro board are fed into Qwen's AI creativity engine to uncover non-obvious conceptual synergies and automatically generate structured idea cards with live connectors back on your board.
+        </p>
+      </section>
+
+      <!-- Board Selector & Action Bar -->
+      <section class="board-action-bar">
+        <div class="board-info-card">
+          <div class="board-header-row">
+            <div class="board-title-group">
+              <span class="board-icon-box">📋</span>
+              <div>
+                <div class="board-eyebrow">Active Miro Board</div>
+                <h3 class="board-title" id="currentBoardTitle">Loading...</h3>
+              </div>
+            </div>
+
+            <div class="board-actions-group">
+              <a href="#" target="_blank" rel="noopener noreferrer" class="board-link-btn" id="openMiroLinkBtn" title="Open board in Miro">
+                <span>View on Miro</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              </a>
+
+              <button class="board-refresh-btn" id="refreshBoardBtn" title="Sync & Reload Notes">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin-icon"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                <span>Sync Notes</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Board Switcher Row -->
+          <div class="board-switch-row">
+            <div class="switch-field">
+              <label for="boardSelectDropdown">Switch Board:</label>
+              <select id="boardSelectDropdown" class="board-select">
+                <option value="">Fetching your boards...</option>
+              </select>
+            </div>
+
+            <div class="switch-field custom-board-field">
+              <label for="customBoardInput">Or paste Board ID / URL:</label>
+              <div class="input-with-button">
+                <input type="text" id="customBoardInput" placeholder="e.g. uXjVEerKs70= or board URL..." spellcheck="false">
+                <button type="button" id="applyCustomBoardBtn">Load</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sticky Notes Workspace Section -->
+      <section class="notes-workspace-section">
+        <div class="section-header">
+          <div class="section-title-group">
+            <h3 class="section-title">Sticky Notes Found on Board</h3>
+            <span class="selection-counter" id="selectionCounter">0 selected</span>
+          </div>
+
+          <div class="section-tools">
+            <div class="search-box">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="noteSearchInput" placeholder="Filter notes..." autocomplete="off">
+            </div>
+            <button class="pill-btn" id="selectAllNotesBtn">Select All</button>
+            <button class="pill-btn" id="deselectAllNotesBtn">Clear</button>
+            <button class="pill-btn highlight" id="randomPickNotesBtn">🎲 Random 4</button>
+          </div>
+        </div>
+
+        <!-- Sticky Notes Canvas Grid -->
+        <div class="notes-canvas-grid" id="notesCanvasGrid">
+          <div class="notes-loading-placeholder">
+            <div class="spinner"></div>
+            <p>Fetching sticky notes from your Miro board...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Roulette Spin Section -->
+      <section class="roulette-action-section">
+        <div class="roulette-card">
+          <div class="roulette-ticker" id="rouletteTicker">
+            <span class="ticker-label">ROULETTE READY</span>
+            <span class="ticker-item" id="tickerPreview">Select at least 2 notes above to begin</span>
+          </div>
+
+          <div class="roulette-button-container">
+            <button class="spin-roulette-btn" id="spinRouletteBtn">
+              <span class="btn-glow-ring"></span>
+              <span class="btn-content">
+                <span class="spin-icon-large">🎰</span>
+                <span class="spin-text-wrapper">
+                  <span class="spin-title">SPIN THE ROULETTE</span>
+                  <span class="spin-subtitle">CONNECT THE IMPOSSIBLE</span>
+                </span>
+              </span>
+              <div class="spin-loader-overlay" id="spinLoader">
+                <div class="pulse-ring"></div>
+                <span class="loader-message" id="loaderMessage">Igniting Ideation Engine...</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ideas Showcase Section -->
+      <section class="ideas-section" id="ideasSection" style="display: none;">
+        <div class="section-header">
+          <div class="section-title-group">
+            <div class="neon-badge">✨ Generated Concepts</div>
+            <h3 class="section-title">Synergistic Breakthroughs</h3>
+          </div>
+          <div class="section-tools">
+            <span class="board-sync-tag" id="boardSyncTag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Synced to Miro at x:1500
+            </span>
+          </div>
+        </div>
+
+        <div class="ideas-showcase-grid" id="ideasShowcaseGrid"></div>
+
+        <!-- Weirdness Amplifier Callout -->
+        <div class="weirder-amplifier-banner">
+          <div class="amplifier-content">
+            <h4>Ready to push the conceptual boundaries?</h4>
+            <p>Amplify the creativity to "11". We will generate 3 highly unusual, borderline absurd, yet logically defensible evolutionary ideas and post them at <code>x=2100</code> on your Miro board.</p>
+          </div>
+          <button class="btn-amplify-weirdness" id="amplifyWeirdnessBtn">
+            <span class="fire-icon">🌀</span>
+            <span>MAKE IT WEIRDER</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Amplified Weirdness Section -->
+      <section class="weirder-section" id="weirderSection" style="display: none;">
+        <div class="section-header">
+          <div class="section-title-group">
+            <div class="neon-badge orange">⚡ Level 11 Creativity</div>
+            <h3 class="section-title">Amplified Anomalies</h3>
+          </div>
+          <span class="board-sync-tag orange">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Synced to Miro at x:2100
+          </span>
+        </div>
+
+        <div class="ideas-showcase-grid weirder-grid" id="weirderShowcaseGrid"></div>
+      </section>
+
+    </main>
+
+    <!-- Slide-over / Modal: Settings & Configuration -->
+    <div class="modal-backdrop" id="settingsModalBackdrop">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <div class="modal-icon">⚙️</div>
+            <div>
+              <h3>Board & Integration Settings</h3>
+              <p>Configure dynamic board IDs, Miro access tokens, and AI models.</p>
+            </div>
+          </div>
+          <button class="modal-close-btn" id="closeSettingsModalBtn">&times;</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="settings-group">
+            <div class="group-title">Miro Configuration</div>
+
+            <div class="form-field">
+              <label for="settingsMiroToken">Miro Access Token</label>
+              <div class="input-with-button">
+                <input type="password" id="settingsMiroToken" placeholder="eyJ..." spellcheck="false">
+                <button type="button" id="toggleTokenVisibilityBtn">Show</button>
+              </div>
+              <small class="field-hint">OAuth token with <code>boards:read</code> and <code>boards:write</code> permissions.</small>
+            </div>
+
+            <div class="form-field">
+              <label for="settingsBoardId">Default Miro Board ID / URL</label>
+              <input type="text" id="settingsBoardId" placeholder="e.g. uXjVEerKs70= or paste full board link" spellcheck="false">
+              <small class="field-hint">Paste full Miro URL or board ID. The app automatically extracts the ID.</small>
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <div class="group-title">AI Engine Configuration</div>
+
+            <div class="form-field">
+              <label for="settingsQwenModel">AI Model</label>
+              <select id="settingsQwenModel">
+                <option value="Qwen-Ambassador/Qwen3.8-Max">Qwen-Ambassador/Qwen3.8-Max (ModelScope)</option>
+                <option value="qwen/qwen3.8-27b">qwen/qwen3.8-27b (Groq)</option>
+                <option value="qwen-plus">qwen-plus (Alibaba DashScope)</option>
+                <option value="qwen-turbo">qwen-turbo (Alibaba DashScope)</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="settingsQwenUrl">API Endpoint URL</label>
+              <input type="text" id="settingsQwenUrl" placeholder="https://api-inference.modelscope.ai/v1/chat/completions" spellcheck="false">
+            </div>
+
+            <div class="form-field">
+              <label for="settingsQwenKey">API Key / Token</label>
+              <input type="password" id="settingsQwenKey" placeholder="Your ModelScope / Groq / DashScope token" spellcheck="false">
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="resetDefaultsBtn">Reset to .env Defaults</button>
+          <button type="button" class="btn-primary-action" id="saveSettingsBtn">Save & Apply</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Add Sticky Note to Miro -->
+    <div class="modal-backdrop" id="addNoteModalBackdrop">
+      <div class="modal-dialog small">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <div class="modal-icon">📝</div>
+            <div>
+              <h3>Add Sticky Note to Miro</h3>
+              <p>Creates a live note on the currently selected board.</p>
+            </div>
+          </div>
+          <button class="modal-close-btn" id="closeAddNoteModalBtn">&times;</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-field">
+            <label for="newNoteContent">Sticky Note Text</label>
+            <textarea id="newNoteContent" rows="3" placeholder="e.g. Electric Skateboards, Medieval Castles, Quantum Coffee..." autofocus></textarea>
+          </div>
+
+          <div class="form-field">
+            <label>Sticky Note Color</label>
+            <div class="color-palette-picker" id="colorPalettePicker">
+              <button type="button" class="color-choice selected" data-color="light_yellow" style="background: #fff9b1;" title="Yellow"></button>
+              <button type="button" class="color-choice" data-color="cyan" style="background: #a6e3e9;" title="Cyan"></button>
+              <button type="button" class="color-choice" data-color="pink" style="background: #ffb7b2;" title="Pink"></button>
+              <button type="button" class="color-choice" data-color="light_green" style="background: #c7ceea;" title="Mint"></button>
+              <button type="button" class="color-choice" data-color="orange" style="background: #ffdac1;" title="Orange"></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="cancelAddNoteBtn">Cancel</button>
+          <button type="button" class="btn-primary-action" id="submitNewNoteBtn">Post to Board</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
