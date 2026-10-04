@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 const MIRO_BASE_URL = 'https://api.miro.com/v2';
 
@@ -612,6 +612,15 @@ Return the same JSON structure with 3 evolved ideas:
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`🎰 Sticky Note Roulette running on http://localhost:${PORT}`);
+// Serve index.html for root and any non-API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🎰 Sticky Note Roulette running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
