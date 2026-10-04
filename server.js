@@ -612,8 +612,8 @@ Return the same JSON structure with 3 evolved ideas:
   }
 });
 
-// Serve index.html for root and any non-API routes
-app.get('*', (req, res) => {
+// Serve index.html for root
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
